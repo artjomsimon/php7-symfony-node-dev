@@ -22,11 +22,13 @@ RUN apt-get --yes --force-yes update \
 	php7.1-xml \
 	php7.1-zip \
 	libpng12-0 \
+	libpng12-dev \
+	libpng \
 	libpng-dev \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
   apt-get install -y nodejs git &&\
   npm install -g bower &&\
   npm install -g grunt &&\
