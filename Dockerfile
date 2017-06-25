@@ -6,6 +6,8 @@ RUN apt-get --yes --force-yes update \
     && apt-get install --yes --force-yes apt-transport-https lsb-release ca-certificates curl \
 	&& echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
     && curl -o /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+	&& curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
+	&& echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update -qq -y \
     && apt-get --yes --force-yes install build-essential \
 	php7.1-cli \
@@ -25,7 +27,8 @@ RUN apt-get --yes --force-yes update \
 	libpng12-dev \
 	libpng \
 	libpng-dev \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+	&& apt-get install yarn
 
 # Install Node.js
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
